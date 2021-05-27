@@ -165,7 +165,7 @@ export function getMetricsForPositionWindow(positionT0: Position, positionT1: Po
  */
 export async function getHistoricalPairReturns(startDateTimestamp, currentPairData, pairSnapshots, currentETHPrice) {
   // catch case where data not puplated yet
-  if (!currentPairData.createdAtTimestamp) {
+  if (!currentPairData.timestamp) {
     return []
   }
   let dayIndex: number = Math.round(startDateTimestamp / 86400) // get unique day bucket unix
@@ -180,7 +180,7 @@ export async function getHistoricalPairReturns(startDateTimestamp, currentPairDa
   const dayTimestamps = []
   while (dayIndex < currentDayIndex) {
     // only account for days where this pair existed
-    if (dayIndex * 86400 >= parseInt(currentPairData.createdAtTimestamp)) {
+    if (dayIndex * 86400 >= parseInt(currentPairData.timestamp)) {
       dayTimestamps.push(dayIndex * 86400)
     }
     dayIndex = dayIndex + 1
@@ -224,8 +224,8 @@ export async function getHistoricalPairReturns(startDateTimestamp, currentPairDa
         reserve0: currentPairData.reserve0,
         reserve1: currentPairData.reserve1,
         reserveUSD: currentPairData.reserveUSD,
-        token0PriceUSD: currentPairData.token0.derivedETH * currentETHPrice,
-        token1PriceUSD: currentPairData.token1.derivedETH * currentETHPrice,
+        token0PriceUSD: currentPairData.token0.derivedBNB * currentETHPrice,
+        token1PriceUSD: currentPairData.token1.derivedBNB * currentETHPrice,
       }
     }
 

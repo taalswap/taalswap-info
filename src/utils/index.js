@@ -98,10 +98,12 @@ export const toWeeklyDate = (date) => {
 }
 
 export function getTimestampsForChanges() {
-  const utcCurrentTime = dayjs.unix(1616025600)
-  const t1 = utcCurrentTime.subtract(1, 'day').startOf('minute').unix()
-  const t2 = utcCurrentTime.subtract(2, 'day').startOf('minute').unix()
-  const tWeek = utcCurrentTime.subtract(1, 'week').startOf('minute').unix()
+  // todo
+  // const utcCurrentTime = dayjs.unix(1616025600)
+  const utcCurrentTime = dayjs.unix(1622091932)
+  const t1 = utcCurrentTime.subtract(1, 'hour').startOf('minute').unix()
+  const t2 = utcCurrentTime.subtract(2, 'hour').startOf('minute').unix()
+  const tWeek = utcCurrentTime.subtract(1, 'day').startOf('minute').unix()
   return [t1, t2, tWeek]
 }
 
@@ -162,7 +164,6 @@ export async function getBlocksFromTimestamps(timestamps, skipCount = 500) {
   if (timestamps?.length === 0) {
     return []
   }
-
   let fetchedData = await splitQuery(GET_BLOCKS, blockClient, [], timestamps, skipCount)
 
   let blocks = []
@@ -171,7 +172,7 @@ export async function getBlocksFromTimestamps(timestamps, skipCount = 500) {
       if (fetchedData[t].length > 0) {
         blocks.push({
           timestamp: t.split('t')[1],
-          number: fetchedData[t][0]['number'],
+          number: fetchedData[t][0]?.['number'],
         })
       }
     }
@@ -235,8 +236,8 @@ export async function getShareValueOverTime(pairAddress, timestamps) {
         reserve0: result.data[row].reserve0,
         reserve1: result.data[row].reserve1,
         reserveUSD: result.data[row].reserveUSD,
-        token0DerivedETH: result.data[row].token0.derivedETH,
-        token1DerivedETH: result.data[row].token1.derivedETH,
+        token0DerivedETH: result.data[row].token0.derivedBNB,
+        token1DerivedETH: result.data[row].token1.derivedBNB,
         roiUsd: values && values[0] ? sharePriceUsd / values[0]['sharePriceUsd'] : 1,
         ethPrice: 0,
         token0PriceUSD: 0,

@@ -193,6 +193,7 @@ export default function Provider({ children }) {
 }
 
 const getTopTokens = async (ethPrice, ethPriceOld) => {
+
   const utcCurrentTime = dayjs.unix(1616025600)
   const utcOneDayBack = utcCurrentTime.subtract(1, 'day').unix()
   const utcTwoDaysBack = utcCurrentTime.subtract(2, 'day').unix()
@@ -204,14 +205,12 @@ const getTopTokens = async (ethPrice, ethPriceOld) => {
       query: TOKENS_CURRENT,
       fetchPolicy: 'cache-first',
     })
-
     let oneDayResult = await client.query({
-      query: TOKENS_DYNAMIC(oneDayBlock),
+      query: TOKENS_DYNAMIC(8656724),
       fetchPolicy: 'cache-first',
     })
-
     let twoDayResult = await client.query({
-      query: TOKENS_DYNAMIC(twoDayBlock),
+      query: TOKENS_DYNAMIC(8656724),
       fetchPolicy: 'cache-first',
     })
 
@@ -257,22 +256,22 @@ const getTopTokens = async (ethPrice, ethPriceOld) => {
             twoDayHistory?.tradeVolumeUSD ?? 0
           )
           const [oneDayTxns, txnChange] = get2DayPercentChange(
-            data.txCount,
-            oneDayHistory?.txCount ?? 0,
-            twoDayHistory?.txCount ?? 0
+            data.totalTransactions,
+            oneDayHistory?.totalTransactions ?? 0,
+            twoDayHistory?.totalTransactions ?? 0
           )
 
-          const currentLiquidityUSD = data?.totalLiquidity * ethPrice * data?.derivedETH
-          const oldLiquidityUSD = oneDayHistory?.totalLiquidity * ethPriceOld * oneDayHistory?.derivedETH
+          const currentLiquidityUSD = data?.totalLiquidity * ethPrice * data?.derivedBNB
+          const oldLiquidityUSD = oneDayHistory?.totalLiquidity * ethPriceOld * oneDayHistory?.derivedBNB
 
           // percent changes
           const priceChangeUSD = getPercentChange(
-            data?.derivedETH * ethPrice,
-            oneDayHistory?.derivedETH ? oneDayHistory?.derivedETH * ethPriceOld : 0
+            data?.derivedBNB * ethPrice,
+            oneDayHistory?.derivedBNB ? oneDayHistory?.derivedBNB * ethPriceOld : 0
           )
 
           // set data
-          data.priceUSD = data?.derivedETH * ethPrice
+          data.priceUSD = data?.derivedBNB * ethPrice
           data.totalLiquidityUSD = currentLiquidityUSD
           data.oneDayVolumeUSD = parseFloat(oneDayVolumeUSD)
           data.volumeChangeUSD = volumeChangeUSD
@@ -284,8 +283,8 @@ const getTopTokens = async (ethPrice, ethPriceOld) => {
           // new tokens
           if (!oneDayHistory && data) {
             data.oneDayVolumeUSD = data.tradeVolumeUSD
-            data.oneDayVolumeETH = data.tradeVolume * data.derivedETH
-            data.oneDayTxns = data.txCount
+            data.oneDayVolumeETH = data.tradeVolume * data.derivedBNB
+            data.oneDayTxns = data.totalTransactions
           }
 
           // update name data for
@@ -308,7 +307,6 @@ const getTopTokens = async (ethPrice, ethPriceOld) => {
           return data
         })
     )
-
     return bulkResults
 
     // calculate percentage changes and daily changes
@@ -383,21 +381,21 @@ const getTokenData = async (address, ethPrice, ethPriceOld) => {
 
     // calculate percentage changes and daily changes
     const [oneDayTxns, txnChange] = get2DayPercentChange(
-      data.txCount,
-      oneDayData?.txCount ?? 0,
-      twoDayData?.txCount ?? 0
+      data.totalTransactions,
+      oneDayData?.totalTransactions ?? 0,
+      twoDayData?.totalTransactions ?? 0
     )
 
     const priceChangeUSD = getPercentChange(
-      data?.derivedETH * ethPrice,
-      parseFloat(oneDayData?.derivedETH ?? 0) * ethPriceOld
+      data?.derivedBNB * ethPrice,
+      parseFloat(oneDayData?.derivedBNB ?? 0) * ethPriceOld
     )
 
-    const currentLiquidityUSD = data?.totalLiquidity * ethPrice * data?.derivedETH
-    const oldLiquidityUSD = oneDayData?.totalLiquidity * ethPriceOld * oneDayData?.derivedETH
+    const currentLiquidityUSD = data?.totalLiquidity * ethPrice * data?.derivedBNB
+    const oldLiquidityUSD = oneDayData?.totalLiquidity * ethPriceOld * oneDayData?.derivedBNB
 
     // set data
-    data.priceUSD = data?.derivedETH * ethPrice
+    data.priceUSD = data?.derivedBNB * ethPrice
     data.totalLiquidityUSD = currentLiquidityUSD
     data.oneDayVolumeUSD = oneDayVolumeUSD
     data.volumeChangeUSD = volumeChangeUSD
@@ -412,8 +410,8 @@ const getTokenData = async (address, ethPrice, ethPriceOld) => {
     // new tokens
     if (!oneDayData && data) {
       data.oneDayVolumeUSD = data.tradeVolumeUSD
-      data.oneDayVolumeETH = data.tradeVolume * data.derivedETH
-      data.oneDayTxns = data.txCount
+      data.oneDayVolumeETH = data.tradeVolume * data.derivedBNB
+      data.oneDayTxns = data.totalTransactions
     }
 
     // update name data for
@@ -509,11 +507,11 @@ const getIntervalTokenData = async (tokenAddress, startTime, interval = 3600, la
     let values = []
     for (var row in result) {
       let timestamp = row.split('t')[1]
-      let derivedETH = parseFloat(result[row]?.derivedETH)
+      let derivedBNB = parseFloat(result[row]?.derivedBNB)
       if (timestamp) {
         values.push({
           timestamp,
-          derivedETH,
+          derivedBNB,
         })
       }
     }
@@ -523,7 +521,7 @@ const getIntervalTokenData = async (tokenAddress, startTime, interval = 3600, la
     for (var brow in result) {
       let timestamp = brow.split('b')[1]
       if (timestamp) {
-        values[index].priceUSD = result[brow].ethPrice * values[index].derivedETH
+        values[index].priceUSD = result[brow].ethPrice * values[index].derivedBNB
         index += 1
       }
     }
