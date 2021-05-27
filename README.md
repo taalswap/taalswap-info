@@ -1,6 +1,6 @@
-# Pancake History
+# Taalswap History
 
-Check it out live: [https://pancakeswap.info/](https://pancakeswap.info/).
+Check it out live: [https://taalswap.info/](https://taalswap.info/).
 
 ### To Start Development
 
