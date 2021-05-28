@@ -46,7 +46,7 @@ export default function GlobalStats() {
               }}
               style={{ position: 'relative' }}
             >
-              BNB Price: <Medium>{formattedEthPrice}</Medium>
+              ETH Price: <Medium>{formattedEthPrice}</Medium>
             </TYPE.main>
           )}
 
