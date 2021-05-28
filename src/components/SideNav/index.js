@@ -168,7 +168,7 @@ function SideNav({ history }) {
               </Link>
             </HeaderText>
             <HeaderText>
-              <Link href="https://docs.taalswap.finance/" target="_blank">
+              <Link href="https://app.gitbook.com/@taalswap/s/taalswap-docs-v-2-0/" target="_blank">
                 Docs
               </Link>
             </HeaderText>

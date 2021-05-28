@@ -5,7 +5,7 @@ import Link from '../Link'
 
 const links = [
   { url: 'https://swap.taalswap.finance', text: 'About' },
-  { url: 'https://docs.taalswap.finance', text: 'Docs' },
+  { url: 'https://app.gitbook.com/@taalswap/s/taalswap-docs-v-2-0/', text: 'Docs' },
   { url: 'https://github.com/taalswap/taalswap-info', text: 'Code' },
 ]
 
