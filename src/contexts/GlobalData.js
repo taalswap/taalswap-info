@@ -228,9 +228,7 @@ async function getGlobalData(ethPrice, oldEthPrice) {
       query: GLOBAL_DATA(),
       fetchPolicy: 'cache-first',
     })
-    console.log('333333', result.data)
     data = result.data.pancakeFactories[0]
-    console.log('444444', data)
 
     // fetch the historical data
     let oneDayResult = await client.query({
@@ -278,6 +276,7 @@ async function getGlobalData(ethPrice, oldEthPrice) {
 
       // format the total liquidity in USD
       data.totalLiquidityUSD = data.totalLiquidityBNB * ethPrice
+
       const liquidityChangeUSD = getPercentChange(
         data.totalLiquidityBNB * ethPrice,
         oneDayData.totalLiquidityBNB * oldEthPrice
@@ -295,7 +294,6 @@ async function getGlobalData(ethPrice, oldEthPrice) {
   } catch (e) {
     console.log(e)
   }
-console.log('?????', data)
   return data
 }
 
@@ -444,12 +442,10 @@ const getEthPrice = async () => {
       fetchPolicy: 'cache-first',
     })
 
-    console.log('mmmm', oneDayBlock)
     let resultOneDay = await client.query({
       query: ETH_PRICE(oneDayBlock),
       fetchPolicy: 'cache-first',
     })
-    console.log('aaaa', resultOneDay)
     const currentPrice = result?.data?.bundles[0]?.bnbPrice
     const oneDayBackPrice = resultOneDay?.data?.bundles[0]?.bnbPrice
     priceChangeETH = getPercentChange(currentPrice, oneDayBackPrice)
@@ -536,7 +532,7 @@ export function useGlobalData() {
   useEffect(() => {
     async function fetchData() {
       let globalData = await getGlobalData(ethPrice, oldEthPrice)
-      console.log('=====', globalData)
+      // console.log('=====', globalData)
       globalData && update(globalData)
 
       let allPairs = await getAllPairsOnUniswap()
