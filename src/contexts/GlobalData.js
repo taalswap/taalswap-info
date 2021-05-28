@@ -430,7 +430,7 @@ const getGlobalTransactions = async () => {
  * Gets the current price  of ETH, 24 hour price, and % change between them
  */
 const getEthPrice = async () => {
-  const utcCurrentTime = dayjs.unix(1622091932)
+  const utcCurrentTime = dayjs.unix(1622136703)
   const utcOneDayBack = utcCurrentTime.subtract(1, 'day').startOf('minute').unix()
 
   let ethPrice = 0
@@ -443,11 +443,13 @@ const getEthPrice = async () => {
       query: ETH_PRICE(),
       fetchPolicy: 'cache-first',
     })
-    /** todo */
+
+    console.log('mmmm', oneDayBlock)
     let resultOneDay = await client.query({
-      query: ETH_PRICE(8656724),
+      query: ETH_PRICE(oneDayBlock),
       fetchPolicy: 'cache-first',
     })
+    console.log('aaaa', resultOneDay)
     const currentPrice = result?.data?.bundles[0]?.bnbPrice
     const oneDayBackPrice = resultOneDay?.data?.bundles[0]?.bnbPrice
     priceChangeETH = getPercentChange(currentPrice, oneDayBackPrice)
