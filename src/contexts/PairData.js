@@ -276,7 +276,7 @@ function parseData(data, oneDayData, twoDayData, oneWeekData, ethPrice, oneDayBl
   data.volumeChangeUntracked = volumeChangeUntracked
 
   // set liquiditry properties
-  data.trackedReserveUSD = data.trackedReserveBNB * ethPrice
+  data.trackedReserveUSD = data.trackedReserveETH * ethPrice
   data.liquidityChangeUSD = getPercentChange(data.reserveUSD, oneDayData?.reserveUSD)
 
   // format if pair hasnt existed for a day or a week

@@ -169,10 +169,10 @@ function PairPage({ pairAddress, history }) {
   // token data for usd
   const [ethPrice] = useEthPrice()
   const token0USD =
-    token0?.derivedBNB && ethPrice ? formattedNum(parseFloat(token0.derivedBNB) * parseFloat(ethPrice), true) : ''
+    token0?.derivedETH && ethPrice ? formattedNum(parseFloat(token0.derivedETH) * parseFloat(ethPrice), true) : ''
 
   const token1USD =
-    token1?.derivedBNB && ethPrice ? formattedNum(parseFloat(token1.derivedBNB) * parseFloat(ethPrice), true) : ''
+    token1?.derivedETH && ethPrice ? formattedNum(parseFloat(token1.derivedETH) * parseFloat(ethPrice), true) : ''
 
   // rates
   const token0Rate = reserve0 && reserve1 ? formattedNum(reserve1 / reserve0) : '-'
@@ -299,7 +299,7 @@ function PairPage({ pairAddress, history }) {
                   <TYPE.main fontSize={'16px'} lineHeight={1} fontWeight={500} ml={'4px'}>
                     {token0 && token1
                       ? `1 ${formattedSymbol0} = ${token0Rate} ${formattedSymbol1} ${
-                          parseFloat(token0?.derivedBNB) ? '(' + token0USD + ')' : ''
+                          parseFloat(token0?.derivedETH) ? '(' + token0USD + ')' : ''
                         }`
                       : '-'}
                   </TYPE.main>
@@ -311,7 +311,7 @@ function PairPage({ pairAddress, history }) {
                   <TYPE.main fontSize={'16px'} lineHeight={1} fontWeight={500} ml={'4px'}>
                     {token0 && token1
                       ? `1 ${formattedSymbol1} = ${token1Rate} ${formattedSymbol0}  ${
-                          parseFloat(token1?.derivedBNB) ? '(' + token1USD + ')' : ''
+                          parseFloat(token1?.derivedETH) ? '(' + token1USD + ')' : ''
                         }`
                       : '-'}
                   </TYPE.main>
