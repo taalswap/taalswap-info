@@ -68,7 +68,7 @@ function AccountPage({ account }) {
         <RowBetween>
           <TYPE.body>
             <BasicLink to="/accounts">{'Accounts '}</BasicLink>→{' '}
-            <Link lineHeight={'145.23%'} href={'https://bscscan.com/address/' + account} target="_blank">
+            <Link lineHeight={'145.23%'} href={'https://rinkeby.etherscan.io/address/' + account} target="_blank">
               {' '}
               {account?.slice(0, 42)}{' '}
             </Link>
