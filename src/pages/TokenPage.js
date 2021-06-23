@@ -384,8 +384,8 @@ function TokenPage({ address, history }) {
                     </AutoRow>
                   </Column>
                   <ButtonLight color={backgroundColor}>
-                    <Link color={backgroundColor} external href={'https://bscscan.com/address/' + address}>
-                      View on BscScan ↗
+                    <Link color={backgroundColor} external href={'https://rinkeby.etherscan.io/address/' + address}>
+                      View on EtherScan ↗
                     </Link>
                   </ButtonLight>
                 </TokenDetailsLayout>
