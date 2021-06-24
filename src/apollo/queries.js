@@ -320,6 +320,25 @@ export const GLOBAL_DATA = (block) => {
   return gql(queryString)
 }
 
+export const GLOBAL_DAY_DATA = (date) => {
+  const queryString = ` query pancakeDayData {
+      pancakeDayDatas(
+       first: 1,
+       where: { date_gte: ${date} }) {
+        id
+        date
+        dailyVolumeUSD
+        dailyVolumeBNB
+        dailyVolumeUntracked
+        totalLiquidityUSD
+        totalLiquidityBNB
+        totalVolumeUSD
+        totalTransactions
+      }
+    }`
+  return gql(queryString)
+}
+
 export const GLOBAL_TXNS = gql`
   query transactions {
     transactions(first: 100, orderBy: timestamp, orderDirection: desc) {

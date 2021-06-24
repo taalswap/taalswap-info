@@ -10,7 +10,15 @@ import {
   get2DayPercentChange,
   getTimeframe,
 } from '../utils'
-import { GLOBAL_DATA, GLOBAL_TXNS, GLOBAL_CHART, ETH_PRICE, ALL_PAIRS, ALL_TOKENS } from '../apollo/queries'
+import {
+  GLOBAL_DATA,
+  GLOBAL_TXNS,
+  GLOBAL_CHART,
+  ETH_PRICE,
+  ALL_PAIRS,
+  ALL_TOKENS,
+  GLOBAL_DAY_DATA
+} from '../apollo/queries'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 const UPDATE = 'UPDATE'
 const UPDATE_TXNS = 'UPDATE_TXNS'
@@ -232,28 +240,28 @@ async function getGlobalData(ethPrice, oldEthPrice) {
 
     // fetch the historical data
     let oneDayResult = await client.query({
-      query: GLOBAL_DATA(oneDayBlock?.number),
+      query: GLOBAL_DAY_DATA(oneDayBlock?.timestamp),
       fetchPolicy: 'cache-first',
     })
-    oneDayData = oneDayResult.data.pancakeFactories[0]
+    oneDayData = oneDayResult.data.pancakeDayDatas[0]
 
     let twoDayResult = await client.query({
-      query: GLOBAL_DATA(twoDayBlock?.number),
+      query: GLOBAL_DAY_DATA(twoDayBlock?.timestamp),
       fetchPolicy: 'cache-first',
     })
-    twoDayData = twoDayResult.data.pancakeFactories[0]
+    twoDayData = twoDayResult.data.pancakeDayDatas[0]
 
     let oneWeekResult = await client.query({
-      query: GLOBAL_DATA(oneWeekBlock?.number),
+      query: GLOBAL_DAY_DATA(oneWeekBlock?.timestamp),
       fetchPolicy: 'cache-first',
     })
-    const oneWeekData = oneWeekResult.data.pancakeFactories[0]
+    const oneWeekData = oneWeekResult.data.pancakeDayDatas[0]
 
     let twoWeekResult = await client.query({
-      query: GLOBAL_DATA(twoWeekBlock?.number),
+      query: GLOBAL_DAY_DATA(twoWeekBlock?.timestamp),
       fetchPolicy: 'cache-first',
     })
-    const twoWeekData = twoWeekResult.data.pancakeFactories[0]
+    const twoWeekData = twoWeekResult.data.pancakeDayDatas[0]
 
     if (data && oneDayData && twoDayData && twoWeekData) {
       let [oneDayVolumeUSD, volumeChangeUSD] = get2DayPercentChange(
