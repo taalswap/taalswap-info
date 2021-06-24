@@ -70,9 +70,12 @@ export default function TokenLogo({ address, header = false, size = '24px', ...r
     )
   }
 
-  const path = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/${isAddress(
-    address
-  )}/logo.png`
+  // TODO : need find a permanent solution...
+  // const path = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/${isAddress(
+  //   address
+  // )}/logo.png`
+
+  const path = `https://swap.taalswap.finance/images/coins/${isAddress(address)}.png`
 
   return (
     <Inline>
