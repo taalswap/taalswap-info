@@ -1,4 +1,4 @@
-# Taalswap History
+# TaalSwap History
 
 Check it out live: [https://taalswap.info/](https://taalswap.info/).
 
