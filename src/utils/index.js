@@ -42,14 +42,14 @@ export function getPoolLink(token0Address, token1Address = null, remove = false)
     return (
       `https://swap.taalswap.finance/#/` +
       (remove ? `remove` : `add`) +
-      `/${token0Address === '0x92ecacfc94588aa99fba837be1a98738290e3252' ? 'ETH' : token0Address}/${'ETH'}`
+      `/${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address}/${'ETH'}`
     )
   } else {
     return (
       `https://swap.taalswap.finance/#/` +
       (remove ? `remove` : `add`) +
-      `/${token0Address === '0x92ecacfc94588aa99fba837be1a98738290e3252' ? 'ETH' : token0Address}/${
-        token1Address === '0x92ecacfc94588aa99fba837be1a98738290e3252' ? 'ETH' : token1Address
+      `/${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address}/${
+        token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token1Address
       }`
     )
   }
@@ -60,8 +60,8 @@ export function getSwapLink(token0Address, token1Address = null) {
     return `https://swap.taalswap.finance/#/swap?inputCurrency=${token0Address}`
   } else {
     return `https://swap.taalswap.finance/#/swap?inputCurrency=${
-      token0Address === '0x92ecacfc94588aa99fba837be1a98738290e3252' ? 'ETH' : token0Address
-    }&outputCurrency=${token1Address === '0x92ecacfc94588aa99fba837be1a98738290e3252' ? 'ETH' : token1Address}`
+      token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address
+    }&outputCurrency=${token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token1Address}`
   }
 }
 
@@ -98,9 +98,9 @@ export const toWeeklyDate = (date) => {
 }
 
 export function getTimestampsForChanges() {
-  // todo
+  // TODO : need to adjust TaalSwap
   // const utcCurrentTime = dayjs.unix(1616025600)
-  const utcCurrentTime = dayjs.unix(1622091932)
+  const utcCurrentTime = dayjs.unix(1625612217)
   const t1 = utcCurrentTime.subtract(1, 'day').startOf('minute').unix()
   const t2 = utcCurrentTime.subtract(2, 'day').startOf('minute').unix()
   const tWeek = utcCurrentTime.subtract(1, 'week').startOf('minute').unix()
@@ -166,6 +166,7 @@ export async function getBlocksFromTimestamps(timestamps, skipCount = 500) {
   }
   let fetchedData = await splitQuery(GET_BLOCKS, blockClient, [], timestamps, skipCount)
 
+  console.log(fetchedData)
   let blocks = []
   if (fetchedData) {
     for (var t in fetchedData) {
@@ -210,7 +211,7 @@ export async function getLiquidityTokenBalanceOvertime(account, timestamps) {
  */
 export async function getShareValueOverTime(pairAddress, timestamps) {
   if (!timestamps) {
-    const utcCurrentTime = dayjs.unix(1616025600)
+    const utcCurrentTime = dayjs.unix(1625612217)
     const utcSevenDaysBack = utcCurrentTime.subtract(8, 'day').unix()
     timestamps = getTimestampRange(utcSevenDaysBack, 86400, 7)
   }
@@ -295,14 +296,14 @@ export const setThemeColor = (theme) => document.documentElement.style.setProper
 export const Big = (number) => new BigNumber(number)
 
 export const urls = {
-  showTransaction: (tx) => `https://bscscan.com/tx/${tx}/`,
-  showAddress: (address) => `https://bscscan.com/address/${address}/`,
-  showToken: (address) => `https://bscscan.com/token/${address}/`,
-  showBlock: (block) => `https://bscscan.com/block/${block}/`,
+  showTransaction: (tx) => `https://etherscan.io/tx/${tx}/`,
+  showAddress: (address) => `https://etherscan.io/address/${address}/`,
+  showToken: (address) => `https://etherscan.io/token/${address}/`,
+  showBlock: (block) => `https://etherscan.io/block/${block}/`,
 }
 
 export const formatTime = (unix) => {
-  const now = dayjs.unix(1616025600)
+  const now = dayjs.unix(1625612217)
   const timestamp = dayjs.unix(unix)
 
   const inSeconds = now.diff(timestamp, 'second')

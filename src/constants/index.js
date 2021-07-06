@@ -1,5 +1,5 @@
 // export const FACTORY_ADDRESS = '0x8BCAECe1041dEcC4704dCc07caB9f00F745b07Ba'
-export const FACTORY_ADDRESS = '0x8bcaece1041decc4704dcc07cab9f00f745b07ba'
+export const FACTORY_ADDRESS = '0xded8b52643c126e996fc1fea9f0c053338bc7e72'
 
 export const BUNDLE_ID = '1'
 
@@ -13,7 +13,7 @@ export const timeframeOptions = {
 
 // token list urls to fetch tokens from - use for warnings on tokens and pairs
 export const SUPPORTED_LIST_URLS__NO_ENS = [
-  'https://raw.githubusercontent.com/taalswap/taalswap-interface/ethereum/src/constants/token/taalswap.json',
+  'https://raw.githubusercontent.com/taalswap/taalswap-interface/taalswap/src/constants/token/taalswap.json',
 ]
 
 // hide from overview list

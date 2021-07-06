@@ -182,8 +182,12 @@ export default function Provider({ children }) {
   )
 }
 
+// Caution: At least blocks over a week should be in the blocks subgraph.
+//          Adjust the startBlock of blocks.yaml in the taalswap-subgraph project.
+
 async function getBulkPairData(pairList, ethPrice) {
   const [t1, t2, tWeek] = getTimestampsForChanges()
+  console.log([t1, t2, tWeek])
   let [{ number: b1 }, { number: b2 }, { number: bWeek }] = await getBlocksFromTimestamps([t1, t2, tWeek])
   try {
     let current = await client.query({
