@@ -209,7 +209,7 @@ async function getGlobalData(ethPrice, oldEthPrice) {
 
   try {
     // get timestamps for the days
-    const utcCurrentTime = dayjs.unix(1625612217)
+    const utcCurrentTime = dayjs(new Date())
     const utcOneDayBack = utcCurrentTime.subtract(1, 'day').unix()
     const utcTwoDaysBack = utcCurrentTime.subtract(2, 'day').unix()
     const utcOneWeekBack = utcCurrentTime.subtract(1, 'week').unix()
@@ -255,7 +255,7 @@ async function getGlobalData(ethPrice, oldEthPrice) {
     })
     const twoWeekData = twoWeekResult.data.taalFactories[0]
 
-    if (data && oneDayData && twoDayData && twoWeekData) {
+    if (data && oneDayData && twoDayData) {
       let [oneDayVolumeUSD, volumeChangeUSD] = get2DayPercentChange(
         data.totalVolumeUSD,
         oneDayData.totalVolumeUSD ? oneDayData.totalVolumeUSD : 0,
@@ -264,8 +264,8 @@ async function getGlobalData(ethPrice, oldEthPrice) {
 
       const [oneWeekVolume, weeklyVolumeChange] = get2DayPercentChange(
         data.totalVolumeUSD,
-        oneWeekData.totalVolumeUSD,
-        twoWeekData.totalVolumeUSD
+        oneWeekData?.totalVolumeUSD,
+        twoWeekData?.totalVolumeUSD
       )
 
       const [oneDayTxns, txnChange] = get2DayPercentChange(
@@ -428,7 +428,7 @@ const getGlobalTransactions = async () => {
  * Gets the current price  of ETH, 24 hour price, and % change between them
  */
 const getEthPrice = async () => {
-  const utcCurrentTime = dayjs.unix(1625612217)
+  const utcCurrentTime = dayjs(new Date())
   const utcOneDayBack = utcCurrentTime.subtract(1, 'day').startOf('minute').unix()
 
   let ethPrice = 0
@@ -465,7 +465,7 @@ const TOKENS_TO_FETCH = 100
  * Loop through every pair on uniswap, used for search
  */
 async function getAllPairsOnUniswap() {
-  const utcCurrentTime = dayjs.unix(1625612217)
+  const utcCurrentTime = dayjs(new Date())
   const utcOneHourBack = utcCurrentTime.subtract(3, 'day').startOf('minute').unix()
   let oneHourBlock = await getBlockFromTimestamp(utcOneHourBack)
 
@@ -545,7 +545,6 @@ export function useGlobalData() {
       fetchData()
     }
   }, [ethPrice, oldEthPrice, update, data, updateAllPairsInUniswap, updateAllTokensInUniswap])
-
   return data || {}
 }
 
