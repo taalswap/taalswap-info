@@ -163,7 +163,7 @@ function SideNav({ history }) {
           </AutoColumn>
           <AutoColumn gap="0.5rem" style={{ marginLeft: '.75rem', marginBottom: '4rem' }}>
             <HeaderText>
-              <Link href="https://swap.taalswap.finance/" target="_blank">
+              <Link href="https://swap.taalswap.finance/#/swap" target="_blank">
                 TaalSwap
               </Link>
             </HeaderText>
