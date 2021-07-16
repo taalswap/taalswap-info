@@ -70,10 +70,14 @@ export default function TokenLogo({ address, header = false, size = '24px', ...r
     )
   }
 
-  // const path = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/assets/${isAddress(
-  //   address
-  // )}/logo.png`
-  const path = `https://swap.taalswap.finance/images/coins/${isAddress(address)}/logo.png`
+  let path
+  const token = address.toLowerCase()
+  if (token === '0x90a4a420732907b3c38b11058f9aa02b3f4121df' ||
+      token === '0x086b00cf35e8873636384cd2b424c39ae875a8a9') {
+    path = `https://taalswap.info/images/coins/${address.toLowerCase()}.png`
+  } else {
+    path = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${ isAddress(address) }/logo.png`
+  }
 
   return (
     <Inline>
