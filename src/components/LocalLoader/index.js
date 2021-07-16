@@ -33,10 +33,12 @@ const AnimatedImg = styled.div`
 `
 
 const LocalLoader = ({ fill }) => {
+  const logo = 'https://ido.taalswap.finance/static/symbol/taalsymbol.png';
+
   return (
     <Wrapper fill={fill}>
       <AnimatedImg>
-        <img src={require('../../assets/logo.png')} alt="loading-icon" />
+        <img src={logo} alt="loading-icon" />
       </AnimatedImg>
     </Wrapper>
   )
