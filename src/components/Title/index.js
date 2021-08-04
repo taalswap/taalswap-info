@@ -32,7 +32,7 @@ export default function Title() {
     <TitleWrapper onClick={() => history.push('/')}>
       <Flex alignItems="center">
         <RowFixed>
-          <UniIcon id="link" onClick={() => history.push('/')}>
+          <UniIcon id="link" onClick={() => window.location='https://taalswap.finance'}>
             <img width={'150px'} src={Logo} alt="logo" />
           </UniIcon>
         </RowFixed>
