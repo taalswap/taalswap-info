@@ -72,7 +72,7 @@ export default function TokenLogo({ address, header = false, size = '24px', ...r
 
   let path
   const token = address.toLowerCase()
-  if (token === '0x90a4a420732907b3c38b11058f9aa02b3f4121df' ||
+  if (token === '0x7e6bd46f4ddc58370c0435d496ef7fcc5fe1751d' ||
       token === '0x086b00cf35e8873636384cd2b424c39ae875a8a9') {
     path = `https://taalswap.info/images/coins/${address.toLowerCase()}.png`
   } else {
