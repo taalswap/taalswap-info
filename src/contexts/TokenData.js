@@ -28,6 +28,8 @@ import { timeframeOptions } from '../constants'
 import { useLatestBlocks } from './Application'
 import { updateNameData } from '../utils/data'
 
+import { BLACKLIST } from '../blacklist'
+
 const UPDATE = 'UPDATE'
 const UPDATE_TOKEN_TXNS = 'UPDATE_TOKEN_TXNS'
 const UPDATE_CHART_DATA = 'UPDATE_CHART_DATA'
@@ -203,6 +205,9 @@ const getTopTokens = async (ethPrice, ethPriceOld) => {
   try {
     let current = await client.query({
       query: TOKENS_CURRENT,
+      variables: {
+        excludeTokenIds: BLACKLIST
+      },
       fetchPolicy: 'cache-first',
     })
     let oneDayResult = await client.query({

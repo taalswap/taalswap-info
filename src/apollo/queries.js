@@ -542,8 +542,8 @@ export const PAIR_DATA = (pairAddress, block) => {
 
 export const PAIRS_BULK = gql`
   ${PairFields}
-  query pairs($allPairs: [Bytes]!) {
-    pairs(where: { id_in: $allPairs }, orderBy: trackedReserveETH, orderDirection: desc) {
+  query pairs($allPairs: [Bytes]!, $excludeTokenIds: [String!]!) {
+    pairs(where: { id_in: $allPairs, token0_not_in: $excludeTokenIds, token1_not_in: $excludeTokenIds }, orderBy: trackedReserveETH, orderDirection: desc) {
       ...PairFields
     }
   }
@@ -601,8 +601,8 @@ const TokenFields = `
 
 export const TOKENS_CURRENT = gql`
   ${TokenFields}
-  query tokens {
-    tokens(first: 200, orderBy: tradeVolumeUSD, orderDirection: desc, where: {id_not: "0x90a4a420732907b3c38b11058f9aa02b3f4121df"}) {
+  query tokens($excludeTokenIds: [String!]!) {
+    tokens(first: 200, orderBy: tradeVolumeUSD, orderDirection: desc, where: { id_not_in: $excludeTokenIds }) {
       ...TokenFields
     }
   }

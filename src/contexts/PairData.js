@@ -28,6 +28,8 @@ import { timeframeOptions } from '../constants'
 import { useLatestBlocks } from './Application'
 import { updateNameData } from '../utils/data'
 
+import { BLACKLIST } from '../blacklist'
+
 const UPDATE = 'UPDATE'
 const UPDATE_PAIR_TXNS = 'UPDATE_PAIR_TXNS'
 const UPDATE_CHART_DATA = 'UPDATE_CHART_DATA'
@@ -193,6 +195,7 @@ async function getBulkPairData(pairList, ethPrice) {
       query: PAIRS_BULK,
       variables: {
         allPairs: pairList,
+        excludeTokenIds: BLACKLIST
       },
       fetchPolicy: 'cache-first',
     })
@@ -221,7 +224,13 @@ async function getBulkPairData(pairList, ethPrice) {
 
     let pairData = await Promise.all(
       current &&
-        current.data.pairs.map(async (pair) => {
+        current.data.pairs
+          // .filter((pair) => {
+          //   return pair.id !== '0x1caa17dbc6ba52b74b81b00158b7d34b579fce4f' &&
+          //     pair.id !== '0x648f94b68db9694ce3a34fd2dd7de5afe645bc52' &&
+          //     pair.id !== '0x93036ed88960b74294aef83608281a47057b804c'
+          // })
+          .map(async (pair) => {
           let data = pair
           let oneDayHistory = oneDayData?.[pair.id]
           if (!oneDayHistory) {
