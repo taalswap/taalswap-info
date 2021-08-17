@@ -602,7 +602,7 @@ const TokenFields = `
 export const TOKENS_CURRENT = gql`
   ${TokenFields}
   query tokens {
-    tokens(first: 200, orderBy: tradeVolumeUSD, orderDirection: desc) {
+    tokens(first: 200, orderBy: tradeVolumeUSD, orderDirection: desc, where: {id_not: "0x90a4a420732907b3c38b11058f9aa02b3f4121df"}) {
       ...TokenFields
     }
   }

@@ -222,11 +222,15 @@ const getTopTokens = async (ethPrice, ethPriceOld) => {
       return { ...obj, [cur.id]: cur }
     }, {})
 
+    // const OLD_TAL = '0x90a4a420732907b3c38b11058f9aa02b3f4121df'
+
     let bulkResults = await Promise.all(
       current &&
         oneDayData &&
         twoDayData &&
-        current?.data?.tokens.map(async (token) => {
+        current?.data?.tokens
+          // .filter((token) => {return token.id !== OLD_TAL})
+          .map(async (token) => {
           let data = token
 
           // let liquidityDataThisToken = liquidityData?.[token.id]
@@ -250,12 +254,12 @@ const getTopTokens = async (ethPrice, ethPriceOld) => {
           }
 
           // calculate percentage changes and daily changes
-          const [oneDayVolumeUSD, volumeChangeUSD] = get2DayPercentChange(
+          const [ oneDayVolumeUSD, volumeChangeUSD ] = get2DayPercentChange(
             data.tradeVolumeUSD,
             oneDayHistory?.tradeVolumeUSD ?? 0,
             twoDayHistory?.tradeVolumeUSD ?? 0
           )
-          const [oneDayTxns, txnChange] = get2DayPercentChange(
+          const [ oneDayTxns, txnChange ] = get2DayPercentChange(
             data.totalTransactions,
             oneDayHistory?.totalTransactions ?? 0,
             twoDayHistory?.totalTransactions ?? 0
