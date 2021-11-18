@@ -18,6 +18,7 @@ import AccountLookup from './pages/AccountLookup'
 import { OVERVIEW_TOKEN_BLACKLIST, PAIR_BLACKLIST } from './constants'
 import LocalLoader from './components/LocalLoader'
 import { useLatestBlocks } from './contexts/Application'
+import XSwapExplorer from './pages/XSwapExplorer'
 
 const AppWrapper = styled.div`
   position: relative;
@@ -190,6 +191,12 @@ function App() {
               <Route path="/pairs">
                 <LayoutWrapper savedOpen={savedOpen} setSavedOpen={setSavedOpen}>
                   <AllPairsPage />
+                </LayoutWrapper>
+              </Route>
+
+              <Route path="/explorer">
+                <LayoutWrapper savedOpen={savedOpen} setSavedOpen={setSavedOpen}>
+                  <XSwapExplorer />
                 </LayoutWrapper>
               </Route>
 
