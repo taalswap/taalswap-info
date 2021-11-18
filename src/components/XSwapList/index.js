@@ -179,8 +179,6 @@ function XSwapList({ color, disbaleLinks, maxItems = 10 }) {
   }
 
   const getUrl = (txHash, fromChain) => {
-    console.log(txHash)
-    console.log(fromChain)
     let url
 
     switch (fromChain.toUpperCase()) {
@@ -192,7 +190,6 @@ function XSwapList({ color, disbaleLinks, maxItems = 10 }) {
         break
     }
 
-    console.log(url)
     return url
   }
 
