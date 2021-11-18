@@ -119,7 +119,7 @@ const Link = styled(RebassLink)`
   }
 `
 
-function XSwapList({ color, disbaleLinks, maxItems = 10 }) {
+function XSwapList({ color, disbaleLinks, maxItems = 10, queryCondition }) {
   const below600 = useMedia('(max-width: 600px)')
   const below870 = useMedia('(max-width: 870px)')
   const below1080 = useMedia('(max-width: 1080px)')
@@ -226,8 +226,8 @@ function XSwapList({ color, disbaleLinks, maxItems = 10 }) {
           </DataText>
 
           <DataText area="amount" fontWeight="500">
-            {/* <div>{xSwapData.amount}</div> */}
-            <div>200000</div>
+            <div>{xSwapData.amount}</div>
+            {/* <div>200000</div> */}
           </DataText>
 
           {!below600 && (
