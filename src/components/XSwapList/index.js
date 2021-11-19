@@ -137,7 +137,6 @@ function XSwapList({ color, disbaleLinks, maxItems = 10, queryCondition }) {
 
   useEffect(() => {
     const getXSWapList = async () => {
-      console.log(queryCondition)
       const url = queryCondition
         ? `http://localhost:4000/bridge/beta/api/history/${queryCondition}`
         : `http://localhost:4000/bridge/beta/api/history?page=${(page - 1) * pageSize}&pageSize=${pageSize}`
