@@ -74,6 +74,7 @@ const Input = styled.input`
   ::placeholder {
     color: ${({ theme }) => theme.text3};
     font-size: 16px;
+    text-align: center;
   }
 
   @media screen and (max-width: 640px) {

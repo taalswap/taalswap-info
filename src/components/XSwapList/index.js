@@ -219,17 +219,17 @@ function XSwapList({ color, disbaleLinks, maxItems = 10, queryCondition }) {
           style={{ height: 'fit-content', minHeight: '45px' }}
         >
           <DataText area="amount" fontWeight="500">
-            <Link
+            {/* <Link
               style={{ marginLeft: '16px', whiteSpace: 'nowrap' }}
               href={getUrl(xSwapData.txHash, xSwapData.fromChain)}
               target="_blank"
-            >
-              {!below870 ? (
-                <FormattedName text={xSwapData.from.slice(0, 6) + '...' + xSwapData.from.slice(-4)} link={true} />
-              ) : (
-                <FormattedName text={xSwapData.from.slice(0, 4) + '...' + xSwapData.from.slice(-3)} link={true} />
-              )}
-            </Link>
+            > */}
+            {!below870 ? (
+              <FormattedName text={xSwapData.from.slice(0, 6) + '...' + xSwapData.from.slice(-4)} link={true} />
+            ) : (
+              <FormattedName text={xSwapData.from.slice(0, 4) + '...' + xSwapData.from.slice(-3)} link={true} />
+            )}
+            {/* </Link> */}
           </DataText>
 
           <DataText area="amount" fontWeight="500">
@@ -244,26 +244,38 @@ function XSwapList({ color, disbaleLinks, maxItems = 10, queryCondition }) {
           )}
           {!below600 && (
             <DataText area="txHash" fontWeight="500">
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                {shortenHash(xSwapData.txHash)}
-                <div style={{ fontSize: '12px', color: xSwapData.fromChain === 'ETH' ? '#8a92ae' : '#675953' }}>
-                  ({xSwapData.fromChain})
+              <Link
+                style={{ marginLeft: '16px', whiteSpace: 'nowrap' }}
+                href={getUrl(xSwapData.txHash, xSwapData.fromChain)}
+                target="_blank"
+              >
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  {shortenHash(xSwapData.txHash)}
+                  <div style={{ fontSize: '12px', color: xSwapData.fromChain === 'ETH' ? '#8a92ae' : '#675953' }}>
+                    ({xSwapData.fromChain})
+                  </div>
                 </div>
-              </div>
+              </Link>
             </DataText>
           )}
 
           <DataText area="xTxHash" fontWeight="500">
-            {xSwapData.xTxHash !== null ? (
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                {shortenHash(xSwapData.xTxHash)}
-                <div style={{ fontSize: '12px', color: xSwapData.toChain === 'ETH' ? '#8a92ae' : '#675953' }}>
-                  ({xSwapData.toChain})
+            <Link
+              style={{ marginLeft: '16px', whiteSpace: 'nowrap' }}
+              href={getUrl(xSwapData.xTxHash, xSwapData.toChain)}
+              target="_blank"
+            >
+              {xSwapData.xTxHash !== null ? (
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  {shortenHash(xSwapData.xTxHash)}
+                  <div style={{ fontSize: '12px', color: xSwapData.toChain === 'ETH' ? '#8a92ae' : '#675953' }}>
+                    ({xSwapData.toChain})
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div>-</div>
-            )}
+              ) : (
+                <div>-</div>
+              )}
+            </Link>
           </DataText>
 
           <DataText area="status" fontWeight="500">
