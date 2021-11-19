@@ -152,9 +152,12 @@ function XSwapList({ color, disbaleLinks, maxItems = 10, queryCondition }) {
   }, [page, queryCondition])
 
   const getMaxPage = (rowCount) => {
-    let maxpage = 1
+    let maxpage
     maxpage = rowCount % pageSize === 0 ? rowCount / pageSize : Math.ceil(rowCount / pageSize)
-
+    if (isNaN(maxpage)) {
+      maxpage = 1
+      setPage(1)
+    }
     return isNaN(maxpage) ? 1 : maxpage
   }
 
