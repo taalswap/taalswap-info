@@ -137,20 +137,25 @@ function XSwapList({ color, disbaleLinks, maxItems = 10, queryCondition }) {
 
   useEffect(() => {
     const getXSWapList = async () => {
-      await axios
-        .get(`http://localhost:4000/bridge/beta/api/history?page=${(page - 1) * pageSize}&pageSize=${pageSize}`)
-        .then((response) => {
-          setMaxPage(getMaxPage(response.data.totalCount))
-          setXSWapList(response.data.data)
-        })
+      console.log(queryCondition)
+      const url = queryCondition
+        ? `http://localhost:4000/bridge/beta/api/history/${queryCondition}`
+        : `http://localhost:4000/bridge/beta/api/history?page=${(page - 1) * pageSize}&pageSize=${pageSize}`
+
+      await axios.get(url).then((response) => {
+        setMaxPage(getMaxPage(response.data.totalCount))
+        setXSWapList(response.data.data)
+      })
     }
 
     getXSWapList()
-  }, [page])
+  }, [page, queryCondition])
 
   const getMaxPage = (rowCount) => {
-    const maxpage = rowCount % pageSize === 0 ? rowCount / pageSize : Math.ceil(rowCount / pageSize)
-    return maxpage
+    let maxpage = 1
+    maxpage = rowCount % pageSize === 0 ? rowCount / pageSize : Math.ceil(rowCount / pageSize)
+
+    return isNaN(maxpage) ? 1 : maxpage
   }
 
   const getDate = (createdAt) => {

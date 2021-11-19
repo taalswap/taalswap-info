@@ -44,7 +44,7 @@ const Wrapper = styled.div`
   border-bottom-left-radius: ${({ open }) => (open ? '0px' : '12px')};
   z-index: 9999;
   width: 100%;
-  min-width: 300px;
+  min-width: 500px;
   box-sizing: border-box;
   box-shadow: ${({ open, small }) =>
     !open && !small
@@ -59,6 +59,7 @@ const Wrapper = styled.div`
   }
 `
 const Input = styled.input`
+  // border: 1px solid red;
   position: relative;
   display: flex;
   align-items: center;
@@ -68,7 +69,7 @@ const Input = styled.input`
   outline: none;
   width: 100%;
   color: ${({ theme }) => theme.text1};
-  font-size: ${({ large }) => (large ? '20px' : '14px')};
+  font-size: ${({ large }) => (large ? '12px' : '12px')};
 
   ::placeholder {
     color: ${({ theme }) => theme.text3};
@@ -102,6 +103,12 @@ export const TxSearch = ({ small = false, setCondition }) => {
   const below470 = useMedia('(max-width: 470px)')
   const below410 = useMedia('(max-width: 410px)')
 
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      setCondition(value)
+    }
+  }
+
   return (
     <Container small={small}>
       <Wrapper shadow={true} small={small}>
@@ -113,6 +120,7 @@ export const TxSearch = ({ small = false, setCondition }) => {
           onChange={(e) => {
             setValue(e.target.value)
           }}
+          onKeyPress={onKeyPress}
         />
         <SearchIconLarge onClick={() => setCondition(value)} />
       </Wrapper>
