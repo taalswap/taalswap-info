@@ -233,7 +233,7 @@ function XSwapList({ color, disbaleLinks, maxItems = 10, queryCondition }) {
           </DataText>
 
           <DataText area="amount" fontWeight="500">
-            <div>{xSwapData.formattedXAmount?.toFixed(10).replace(/(0+$)/, '')}</div>
+            <div>{parseFloat(xSwapData.formattedAmount?.toFixed(10))}</div>
             {/* <div>200000</div> */}
           </DataText>
 
