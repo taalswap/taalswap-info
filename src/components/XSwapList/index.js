@@ -138,8 +138,8 @@ function XSwapList({ color, disbaleLinks, maxItems = 10, queryCondition }) {
   useEffect(() => {
     const getXSWapList = async () => {
       const url = queryCondition
-        ? `http://localhost:4000/bridge/beta/api/history/${queryCondition}`
-        : `http://localhost:4000/bridge/beta/api/history?page=${(page - 1) * pageSize}&pageSize=${pageSize}`
+        ? `https://api.taalswap.info/bridge/api/history/${queryCondition}`
+        : `https://api.taalswap.info/bridge/api/history?page=${(page - 1) * pageSize}&pageSize=${pageSize}`
 
       await axios.get(url).then((response) => {
         setMaxPage(getMaxPage(response.data.totalCount))
@@ -233,7 +233,7 @@ function XSwapList({ color, disbaleLinks, maxItems = 10, queryCondition }) {
           </DataText>
 
           <DataText area="amount" fontWeight="500">
-            <div>{parseFloat(xSwapData.formattedAmount?.toFixed(10))}</div>
+            <div>{xSwapData.formattedAmount !== null ? parseFloat(xSwapData.formattedAmount.toFixed(10)) : '-'}</div>
             {/* <div>200000</div> */}
           </DataText>
 
